@@ -3,7 +3,12 @@ import axios from "axios";
 import { marked } from "marked";
 
 const ChatBox = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    {
+      sender: "ai",
+      text: marked("👋 Welcome to **PV8**! How can I help you today?"),
+    },
+  ]);
   const [input, setInput] = useState("");
 
   const sendMessage = async () => {
@@ -51,8 +56,7 @@ const ChatBox = () => {
     <div
       style={{
         width: "50vw",
-        height: "100%",
-       
+        height: "90%",
         backgroundColor: "#f3f4f6",
         display: "flex",
         flexDirection: "column",
@@ -61,6 +65,34 @@ const ChatBox = () => {
         boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
       }}
     >
+      {/* PV8 Title and Welcome */}
+      <div
+        style={{
+          textAlign: "center",
+          marginBottom: "18px",
+        }}
+      >
+        <h2
+          style={{
+            margin: 0,
+            fontWeight: 700,
+            fontSize: "2rem",
+            color: "#6366f1",
+            letterSpacing: "1px",
+          }}
+        >
+          PV8
+        </h2>
+        <p
+          style={{
+            margin: "8px 0 0 0",
+            color: "#444",
+            fontSize: "1.1rem",
+          }}
+        >
+          👋 Welcome to <b>PV8</b>! How can I help you today?
+        </p>
+      </div>
       <div
         style={{
           flex: 1,
@@ -73,7 +105,7 @@ const ChatBox = () => {
           <div
             key={i}
             style={{
-              marginBottom: "12px",
+              marginBottom: "18px",
               padding: "10px 14px",
               borderRadius: "10px",
               alignSelf: msg.sender === "user" ? "flex-end" : "flex-start",
@@ -103,15 +135,21 @@ const ChatBox = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKey}
-          placeholder="Ask anything..."
+          placeholder="Type your message to PV8..."
           style={{
             flex: 1,
-            padding: "12px 16px",
-            borderRadius: "8px 0 0 8px",
-            border: "1px solid #ccc",
-            outline: "none",
-            fontSize: "16px",
+            padding: "10px 10px",
+            borderRadius: "12px",
+            border: "1.5px solid #d1d5db",
+            fontSize: "17px",
+            background: "#fff",
+            color: "#222",
+            caretColor: "#6366f1",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
+            transition: "border 0.2s",
           }}
+          onFocus={(e) => (e.target.style.border = "1.5px solid #6366f1")}
+          onBlur={(e) => (e.target.style.border = "1.5px solid #d1d5db")}
         />
         <button
           onClick={sendMessage}
